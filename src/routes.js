@@ -8,6 +8,9 @@ const carroController=require('./Controllers/CarroController');
 const pecaController=require('./Controllers/PecaController');
 const funcController=require('./Controllers/FuncController');
 const contatoCtrl=require('./Controllers/ContatoController');
+const servicoCtrl=require('./Controllers/ServicoController');
+const serPecaCtrl=require('./Controllers/ServicoPecaController');
+
 routes.post('/peca',pecaController.gravar);
 routes.put('/peca',pecaController.alterar);
 routes.get('/peca/:cod',pecaController.procurarCod);
@@ -43,5 +46,15 @@ routes.put('/func',funcController.alterar);
 routes.get('/func',funcController.listar);
 routes.get('/func/:cod',funcController.procurarFunc);
 
+routes.post('/servico',servicoCtrl.gravar);
+routes.get('/servicoCarro/:cod',servicoCtrl.listarPorCarro);
+routes.get('servicoCliente/:cod',servicoCtrl.listarPorCliente);
+routes.get('/servico/:cod',servicoCtrl.procurarServico);
+routes.get('/servico/:datainicio/:datafim',servicoCtrl.listarPorData);
+routes.put('/servico',servicoCtrl.alterar);
 
+routes.post('./servicopeca',serPecaCtrl.gravar);
+routes.put('./servicopeca',serPecaCtrl.alterar);
+routes.delete('./servicopeca',serPecaCtrl.deletar);
+routes.get('./servicopeca/:ser_cod',serPecaCtrl.listar);
 module.exports=routes;
