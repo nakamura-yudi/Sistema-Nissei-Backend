@@ -10,6 +10,7 @@ const funcController=require('./Controllers/FuncController');
 const contatoCtrl=require('./Controllers/ContatoController');
 const servicoCtrl=require('./Controllers/ServicoController');
 const serPecaCtrl=require('./Controllers/ServicoPecaController');
+const contaCtrl=require('./Controllers/ContaReceberController');
 
 routes.post('/peca',pecaController.gravar);
 routes.put('/peca',pecaController.alterar);
@@ -57,4 +58,9 @@ routes.post('./servicopeca',serPecaCtrl.gravar);
 routes.put('./servicopeca',serPecaCtrl.alterar);
 routes.delete('./servicopeca',serPecaCtrl.deletar);
 routes.get('./servicopeca/:ser_cod',serPecaCtrl.listar);
+
+routes.post('./conta',contaCtrl.gravar);
+routes.put('./conta',contaCtrl.alterar);
+routes.delete('./conta/:con_cod/:ser_cod',contaCtrl.deletar);
+routes.get('./conta/:ser_cod',contaCtrl.listar);
 module.exports=routes;
