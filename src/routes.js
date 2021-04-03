@@ -15,6 +15,7 @@ const contaCtrl=require('./Controllers/ContaReceberController');
 routes.post('/peca',pecaController.gravar);
 routes.put('/peca',pecaController.alterar);
 routes.get('/peca/:cod',pecaController.procurarCod);
+routes.get('/peca',pecaController.listar);
 
 routes.post('/carro',carroController.gravar);
 routes.put('/carro',carroController.alterar);
