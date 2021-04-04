@@ -50,18 +50,19 @@ routes.get('/func/:cod',funcController.procurarFunc);
 
 routes.post('/servico',servicoCtrl.gravar);
 routes.get('/servicoCarro/:cod',servicoCtrl.listarPorCarro);
-routes.get('servicoCliente/:cod',servicoCtrl.listarPorCliente);
+routes.get('/servicoCliente/:cod',servicoCtrl.listarPorCliente);
 routes.get('/servico/:cod',servicoCtrl.procurarServico);
 routes.get('/servico/:datainicio/:datafim',servicoCtrl.listarPorData);
+routes.get('/servico',servicoCtrl.listar);
 routes.put('/servico',servicoCtrl.alterar);
 
-routes.post('./servicopeca',serPecaCtrl.gravar);
-routes.put('./servicopeca',serPecaCtrl.alterar);
-routes.delete('./servicopeca',serPecaCtrl.deletar);
-routes.get('./servicopeca/:ser_cod',serPecaCtrl.listar);
+routes.post('/servicopeca',serPecaCtrl.gravar);
+routes.put('/servicopeca',serPecaCtrl.alterar);
+routes.delete('/servicopeca',serPecaCtrl.deletar);
+routes.get('/servicopeca/:ser_cod',serPecaCtrl.listar);
 
-routes.post('./conta',contaCtrl.gravar);
-routes.put('./conta',contaCtrl.alterar);
-routes.delete('./conta/:con_cod/:ser_cod',contaCtrl.deletar);
-routes.get('./conta/:ser_cod',contaCtrl.listar);
+routes.post('/conta',contaCtrl.gravar);
+routes.put('/conta',contaCtrl.alterar);
+routes.delete('/conta/:con_cod/:ser_cod',contaCtrl.deletar);
+routes.get('/conta/:ser_cod',contaCtrl.listar);
 module.exports=routes;

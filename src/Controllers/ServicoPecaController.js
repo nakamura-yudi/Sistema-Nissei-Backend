@@ -6,10 +6,10 @@ module.exports={
     async gravar(request,response) {
  
         const {ser_cod,pec_cod,uti_precoUni,uti_qtde} = request.body;
-       
-        //verificar se o professor ja esta cadastrado
+        console.log(ser_cod+" "+pec_cod+" "+uti_precoUni+" "+uti_qtde);
+        
         const con = await db.conecta();
-        const sql = "INSERT INTO servicopeca (ser_cod,pec_cod,uti_precoUni,uti_qtde) VALUES (?, ?, ?, ?)";
+        const sql = "INSERT INTO servicopecas (ser_cod,pec_cod,uti_precoUni,uti_qtde) VALUES (?, ?, ?, ?)";
         
         const valor = [ser_cod,pec_cod,uti_precoUni,uti_qtde];
         const result = await db.manipula(sql,valor);
@@ -21,7 +21,7 @@ module.exports={
     
       
         const con = await db.conecta();
-        const sql = "UPDATE servicopeca SET uti_precoUni=?,uti_qtde=? ,"+
+        const sql = "UPDATE servicopecas SET uti_precoUni=?,uti_qtde=? ,"+
                     "WHERE ser_cod = ? AND pec_cod=?";
         
         const valor = [uti_precoUni,uti_qtde,ser_cod,pec_cod];
@@ -33,7 +33,7 @@ module.exports={
         const {pec_cod} = request.params;
       
         const con = await db.conecta();
-        const sql = "DELETE FROM servicopeca WHERE ser_cod=? AND pec_cod=? "
+        const sql = "DELETE FROM servicopecas WHERE ser_cod=? AND pec_cod=? "
               
         
         const valor = [ser_cod,pec_cod];
@@ -43,7 +43,7 @@ module.exports={
     async listar(request,response){
         const {ser_cod} = request.params;
         const con = await db.conecta();
-        const sql = "SELECT * FROM servicopeca where ser_cod=?";
+        const sql = "SELECT * FROM servicopecas where ser_cod=?";
         const valor = [ser_cod];
         const pecas = await db.consulta(sql,valor);
         return response.json(pecas.data);

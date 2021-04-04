@@ -5,15 +5,14 @@ const db = require('../models/Database');
 module.exports={
     async gravar(request,response) {
  
-        const {car_id,pes_cod,ser_descricao,ser_maoObra,ser_inicio,ser_fim,ser_total,ser_status} = request.body;
-       
+        const {car_id,pes_cod,ser_descricao,ser_maoObra,ser_inicio,ser_total,ser_status} = request.body;
         //verificar se o professor ja esta cadastrado
         const con = await db.conecta();
-        const sql = "INSERT INTO servico (car_id,pes_cod,ser_descricao,ser_maoObra,ser_inicio,ser_fim,ser_total,ser_status) VALUES (?, ?, ?, ?, ?, ?,?,?)";
+        const sql = "INSERT INTO servico (car_id,pes_cod,ser_descricao,ser_maoObra,ser_inicio,ser_fim,ser_total,ser_status) VALUES (?, ?, ?,?, ?, null,?,?)";
         
-        const valor = [car_id,pes_cod,ser_descricao,ser_maoObra,ser_inicio,ser_fim,ser_total,ser_status];
+        const valor = [car_id,pes_cod,ser_descricao,ser_maoObra,ser_inicio,ser_total,ser_status];
         const result = await db.manipula(sql,valor);
-        
+        console.log('passei ');
         return response.json(result);
     },
     async alterar(request,response){
@@ -54,6 +53,12 @@ module.exports={
         const sql = "SELECT * FROM servico where car_id=?";
         const valor = [cod];
         const sers = await db.consulta(sql,valor);
+        return response.json(sers.data);
+    },
+    async listar(request,response){
+        const con = await db.conecta();
+        const sql = "SELECT * FROM servico";
+        const sers = await db.consulta(sql);
         return response.json(sers.data);
     },
     async listarPorData(request,response){
