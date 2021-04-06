@@ -29,9 +29,8 @@ module.exports={
         return response.json(result);
     },
     async deletar(request,response){
-        const {ser_cod} = request.params;
-        const {pec_cod} = request.params;
-      
+        const ser_cod = request.params.ser_cod;
+        const pec_cod = request.params.pec_cod;
         const con = await db.conecta();
         const sql = "DELETE FROM servicopecas WHERE ser_cod=? AND pec_cod=? "
               

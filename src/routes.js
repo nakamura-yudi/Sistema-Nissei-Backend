@@ -58,7 +58,7 @@ routes.put('/servico',servicoCtrl.alterar);
 
 routes.post('/servicopeca',serPecaCtrl.gravar);
 routes.put('/servicopeca',serPecaCtrl.alterar);
-routes.delete('/servicopeca',serPecaCtrl.deletar);
+routes.delete('/servicopeca/:ser_cod/:pec_cod',serPecaCtrl.deletar);
 routes.get('/servicopeca/:ser_cod',serPecaCtrl.listar);
 
 routes.post('/conta',contaCtrl.gravar);
