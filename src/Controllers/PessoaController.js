@@ -38,6 +38,16 @@ module.exports={
 
         return response.json(result.data);
     },
+    async procurarEmail(request,response){
+        const {email} = request.params;
+        const con = await db.conecta();
+        const sql = "SELECT * FROM Pessoa WHERE pes_email=?";
+        
+        const valor = [email];
+        const result = await db.consulta(sql,valor);
+
+        return response.json(result.data);
+    },
     async listarCliente(request,response){
         const con = await db.conecta();
         const sql = "SELECT * FROM Pessoa,Cliente WHERE Pessoa.pes_cod=Cliente.pes_cod";

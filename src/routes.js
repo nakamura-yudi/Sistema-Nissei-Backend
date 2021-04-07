@@ -32,6 +32,7 @@ routes.get('/pessoasFun',pessoaCtrl.listarFuncionario);
 routes.get('/pessoaCpf/:cpf',pessoaCtrl.procurarCPF);
 routes.put('/pessoa',pessoaCtrl.alterar);
 routes.get('/pessoaEmail/:email',pessoaCtrl.validarEmail);
+routes.get('/pessoaProcurarEmail/:email',pessoaCtrl.procurarEmail);
 
 routes.post('/clientes',clienteCtrl.gravar);
 routes.put('/clientes',clienteCtrl.alterar);
