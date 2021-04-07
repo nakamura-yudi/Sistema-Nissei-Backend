@@ -17,11 +17,11 @@ module.exports={
     },
     async alterar(request,response){
         const {pes_cod,cli_bairro,cli_rua,cli_cidade,cli_uf,cli_cep} = request.body;
-    
+        
       
         const con = await db.conecta();
         const sql = "UPDATE Cliente SET cli_bairro = ?,cli_rua=?, "+
-                    "cli_cidade=?,cli_uf=?,cli_cep=?"+
+                    "cli_cidade=?,cli_uf=?,cli_cep=? "+
                     "WHERE pes_cod = ?";
         
         const valor = [cli_bairro,cli_rua,cli_cidade,cli_uf,cli_cep,pes_cod];
