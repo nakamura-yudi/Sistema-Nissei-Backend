@@ -6,7 +6,6 @@ module.exports={
     async gravar(request,response) {
  
         const {ser_cod,pec_cod,uti_precoUni,uti_qtde} = request.body;
-        console.log(ser_cod+" "+pec_cod+" "+uti_precoUni+" "+uti_qtde);
         
         const con = await db.conecta();
         const sql = "INSERT INTO servicopecas (ser_cod,pec_cod,uti_precoUni,uti_qtde) VALUES (?, ?, ?, ?)";
