@@ -39,7 +39,7 @@ module.exports={
       
         const con = await db.conecta();
         const sql = "UPDATE marca set mar_descricao=? "+
-                    "WHERE car_id = ?";
+                    "WHERE mar_cod = ?";
         
         const valor = [mar_descricao,mar_cod];
         const result = await db.manipula(sql,valor);

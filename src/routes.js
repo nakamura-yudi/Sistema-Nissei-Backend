@@ -24,6 +24,8 @@ routes.get('/carro/:cod',carroController.procurarCod);
 routes.get('/carroPes/:cod',carroController.procurarCodPessoa);
 
 routes.get('/marcas',marcaCtrl.listar);
+routes.post('/marcas',marcaCtrl.gravar);
+routes.put('/marcas',marcaCtrl.alterar);
 
 routes.post('/pessoas',pessoaCtrl.gravar);
 routes.get('/pessoaCod/:cod',pessoaCtrl.procurarCod)
