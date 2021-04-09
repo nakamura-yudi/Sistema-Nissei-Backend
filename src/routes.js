@@ -32,6 +32,10 @@ routes.delete('/carro/:cod',carroController.deletar);
 routes.get('/marcas',marcaCtrl.listar);
 routes.post('/marcas',marcaCtrl.gravar);
 routes.put('/marcas',marcaCtrl.alterar);
+routes.get('/marcas/:cod',marcaCtrl.procurarCod);
+routes.delete('/marcas/:cod',marcaCtrl.excluir);
+routes.get('/marcasfiltro/:filtro',marcaCtrl.listarPorFiltro);
+routes.put('/marcasstatus/:cod',marcaCtrl.alterarStatus);
 
 routes.post('/pessoas',pessoaCtrl.gravar);
 routes.get('/pessoaCod/:cod',pessoaCtrl.procurarCod)
