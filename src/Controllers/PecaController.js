@@ -45,4 +45,23 @@ module.exports={
         const result = await db.manipula(sql,valor);
         return response.json(result);
     },
+    async deletar(request,response){
+        const cod = request.params.cod;
+        const con = await db.conecta();
+        const sql = "DELETE FROM Peca WHERE pec_cod=?";
+        
+        const valor = [cod];
+        const result = await db.consulta(sql,valor);
+        return response.json(result.data);
+    },
+    async deletarLogico(request,response){
+        const cod = request.params.cod;
+        const con = await db.conecta();
+        const sql = "UPDATE Peca SET pec_status = ? "+
+                    "WHERE pec_cod = ?";
+        
+        const valor = [false,cod];
+        const result = await db.consulta(sql,valor);
+        return response.json(result.data);
+    }
 }

@@ -66,6 +66,14 @@ module.exports={
         const {datafim} = request.params;
         const con = await db.conecta();
         const sql = "SELECT * FROM servico where CURRENT_DATE()>="+datainicio+ " AND CURRENT_DATE()<="+datafim;
+        
+        const sers = await db.consulta(sql,valor);
+        return response.json(sers.data);
+    },
+    async listarPorFuncionario(request,response){
+        const {cod} = request.params;
+        const con = await db.conecta();
+        const sql = "SELECT * FROM servico where fun_cod=?";
         const valor = [cod];
         const sers = await db.consulta(sql,valor);
         return response.json(sers.data);

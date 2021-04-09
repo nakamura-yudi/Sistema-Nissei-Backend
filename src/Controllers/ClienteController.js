@@ -43,5 +43,24 @@ module.exports={
         const sql = "SELECT * FROM Cliente";
         const users = await db.consulta(sql);
         return response.json(users.data);
+    },
+    async deletar(request,response){
+        const cod = request.params.cod;
+        const con = await db.conecta();
+        const sql = "DELETE FROM Cliente WHERE pes_cod=?";
+        
+        const valor = [cod];
+        const result = await db.consulta(sql,valor);
+        return response.json(result.data);
+    },
+    async deletarLogico(request,response){
+        const cod = request.params.cod;
+        const con = await db.conecta();
+        const sql = "UPDATE Cliente SET cli_status = ? "+
+                    "WHERE pes_cod = ?";
+        
+        const valor = [false,cod];
+        const result = await db.consulta(sql,valor);
+        return response.json(result.data);
     }
 }

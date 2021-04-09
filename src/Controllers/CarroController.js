@@ -8,6 +8,13 @@ module.exports={
         const users = await db.consulta(sql);
         return response.json(users.data);
     },
+    async listarPorMarca(request,response){
+        const cod = request.params.cod;
+        const con = await db.conecta();
+        const sql = "SELECT * FROM carro where mar_cod=?";
+        const users = await db.consulta(sql,cod);
+        return response.json(users.data);
+    },
     async procurarCod(request,response){
         const cod = request.params.cod;
         const con = await db.conecta();
@@ -54,4 +61,22 @@ module.exports={
         const result = await db.manipula(sql,valor);
         return response.json(result);
     },
+    async deletar(request,response){
+        const cod = request.params.cod;
+        const con = await db.conecta();
+        const sql = "DELETE FROM Carro WHERE car_id=?";
+        
+        const valor = [cod];
+        const result = await db.consulta(sql,valor);
+        return response.json(result.data);
+    },
+    async deletarLogico(request,response){
+        const cod = request.params.cod;
+        const con = await db.conecta();
+        const sql = "UPDATE carro SET car_status=? WHERE car_id = ?";
+        
+        const valor = [false,cod];
+        const result = await db.consulta(sql,valor);
+        return response.json(result.data);
+    }
 }

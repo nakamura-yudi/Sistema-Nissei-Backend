@@ -14,14 +14,20 @@ const contaCtrl=require('./Controllers/ContaReceberController');
 
 routes.post('/peca',pecaController.gravar);
 routes.put('/peca',pecaController.alterar);
+routes.put('/pecaLog/:cod',pecaController.deletarLogico);
 routes.get('/peca/:cod',pecaController.procurarCod);
 routes.get('/peca',pecaController.listar);
+routes.delete('/peca/:cod',pecaController.deletar);
+
 
 routes.post('/carro',carroController.gravar);
 routes.put('/carro',carroController.alterar);
+routes.put('/carroLog/:cod',carroController.deletarLogico);
 routes.get('/carros',carroController.listar);
 routes.get('/carro/:cod',carroController.procurarCod);
 routes.get('/carroPes/:cod',carroController.procurarCodPessoa);
+routes.get('/carroMarca/:cod',carroController.listarPorMarca);
+routes.delete('/carro/:cod',carroController.deletar);
 
 routes.get('/marcas',marcaCtrl.listar);
 routes.post('/marcas',marcaCtrl.gravar);
@@ -38,22 +44,28 @@ routes.get('/pessoaProcurarEmail/:email',pessoaCtrl.procurarEmail);
 
 routes.post('/clientes',clienteCtrl.gravar);
 routes.put('/clientes',clienteCtrl.alterar);
+routes.put('/cliente/:cod',clienteCtrl.deletarLogico);
 routes.get('/clienteCod/:cod',clienteCtrl.procurarCliente);
 routes.get('/cliente',clienteCtrl.listar);
+routes.delete('/cliente/:cod',clienteCtrl.deletar);
+
 
 routes.post('/contatos',contatoCtrl.gravar);
 routes.get('/contatos/:cod',contatoCtrl.listarCod);
 routes.delete('/contato/:cod',contatoCtrl.excluir);
 
-routes.get('/func/:email/:senha',funcController.procurarUser);
 routes.post('/func',funcController.gravar);
 routes.put('/func',funcController.alterar);
+routes.put('/funcLog/:cod',funcController.deletarLogico);
+routes.get('/func/:email/:senha',funcController.procurarUser);
 routes.get('/func',funcController.listar);
 routes.get('/func/:cod',funcController.procurarFunc);
+routes.delete('func/:cod',funcController.deletar);
 
 routes.post('/servico',servicoCtrl.gravar);
 routes.get('/servicoCarro/:cod',servicoCtrl.listarPorCarro);
 routes.get('/servicoCliente/:cod',servicoCtrl.listarPorCliente);
+routes.get('/servicoFuncionario/:cod',servicoCtrl.listarPorFuncionario);
 routes.get('/servico/:cod',servicoCtrl.procurarServico);
 routes.get('/servico/:datainicio/:datafim',servicoCtrl.listarPorData);
 routes.get('/servico',servicoCtrl.listar);
