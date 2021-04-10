@@ -58,8 +58,10 @@ module.exports={
         const sql = "DELETE FROM Funcionario WHERE pes_cod=?";
         
         const valor = [cod];
-        const result = await db.consulta(sql,valor);
-        return response.json(result.data);
+        var result = await db.manipula(sql,valor);
+        const sql2 = "DELETE FROM Pessoa WHERE pes_cod=?";
+        result = await db.manipula(sql2,valor);
+        return response.json(result);
     },
     async deletarLogico(request,response){
         const cod = request.params.cod;

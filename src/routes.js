@@ -40,7 +40,9 @@ routes.put('/marcasstatus/:cod',marcaCtrl.alterarStatus);
 routes.post('/pessoas',pessoaCtrl.gravar);
 routes.get('/pessoaCod/:cod',pessoaCtrl.procurarCod)
 routes.get('/pessoasCli',pessoaCtrl.listarCliente);
+routes.get('/pessoasCliFiltro/:filtro',pessoaCtrl.listarClientePorFiltro);
 routes.get('/pessoasFun',pessoaCtrl.listarFuncionario);
+routes.get('/pessoasFunFiltro/:filtro',pessoaCtrl.listarFuncionarioPorFiltro);
 routes.get('/pessoaCpf/:cpf',pessoaCtrl.procurarCPF);
 routes.put('/pessoa',pessoaCtrl.alterar);
 routes.get('/pessoaEmail/:email',pessoaCtrl.validarEmail);
@@ -64,7 +66,7 @@ routes.put('/funcLog/:cod',funcController.deletarLogico);
 routes.get('/func/:email/:senha',funcController.procurarUser);
 routes.get('/func',funcController.listar);
 routes.get('/func/:cod',funcController.procurarFunc);
-routes.delete('func/:cod',funcController.deletar);
+routes.delete('/func/:cod',funcController.deletar);
 
 routes.post('/servico',servicoCtrl.gravar);
 routes.get('/servicoCarro/:cod',servicoCtrl.listarPorCarro);
