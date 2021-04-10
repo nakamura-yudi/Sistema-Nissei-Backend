@@ -45,14 +45,22 @@ module.exports={
         const result = await db.manipula(sql,valor);
         return response.json(result);
     },
+    async listarPorFiltro(request,response){
+        const filtro = request.params.filtro;
+        const con = await db.conecta();
+        const sql = "SELECT * FROM peca WHERE pec_descricao LIKE ?";
+        const valor = [filtro+"%"];
+        const pecas = await db.consulta(sql,valor);
+        return response.json(pecas.data);
+    },
     async deletar(request,response){
         const cod = request.params.cod;
         const con = await db.conecta();
         const sql = "DELETE FROM Peca WHERE pec_cod=?";
         
         const valor = [cod];
-        const result = await db.consulta(sql,valor);
-        return response.json(result.data);
+        const result = await db.manipula(sql,valor);
+        return response.json(result);
     },
     async deletarLogico(request,response){
         const cod = request.params.cod;
@@ -61,7 +69,7 @@ module.exports={
                     "WHERE pec_cod = ?";
         
         const valor = [false,cod];
-        const result = await db.consulta(sql,valor);
-        return response.json(result.data);
+        const result = await db.manipula(sql,valor);
+        return response.json(result);
     }
 }

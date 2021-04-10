@@ -45,6 +45,15 @@ module.exports={
         const valor = [ser_cod];
         const pecas = await db.consulta(sql,valor);
         return response.json(pecas.data);
-    }
+    },
+    async listarPeca(request,response){
+        const {cod} = request.params;
+        const con = await db.conecta();
+        const sql = "SELECT * FROM servicopecas where pec_cod=?";
+        const valor = [cod];
+        const pecas = await db.consulta(sql,valor);
+        return response.json(pecas.data);
+    },
+    
   
 }
