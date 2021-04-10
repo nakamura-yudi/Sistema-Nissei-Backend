@@ -56,7 +56,7 @@ module.exports={
     },
     async listarFuncionario(request,response){
         const con = await db.conecta();
-        const sql = "SELECT * FROM Pessoa,Funcionario WHERE Pessoa.pes_cod=Funcionario.pes_cod";
+        const sql = "SELECT * FROM Pessoa,Funcionario WHERE Pessoa.pes_cod=Funcionario.pes_cod AND Funcionario.fun_nivel='U'";
         const users = await db.consulta(sql);
         return response.json(users.data);
     },

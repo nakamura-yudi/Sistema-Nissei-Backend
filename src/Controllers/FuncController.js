@@ -8,7 +8,7 @@ module.exports={
        
         //verificar se o professor ja esta cadastrado
         const con = await db.conecta();
-        const sql = "INSERT INTO Funcionario (pes_cod,fun_anoInicio,fun_senha) VALUES (?, ?, ?)";
+        const sql = "INSERT INTO Funcionario (pes_cod,fun_anoInicio,fun_senha,fun_nivel,fun_status) VALUES (?, ?, ?,'U',true)";
         
         const valor = [pes_cod,fun_anoInicio,fun_senha];
         const result = await db.manipula(sql,valor);
@@ -39,7 +39,7 @@ module.exports={
     },
     async listar(request,response){
         const con = await db.conecta();
-        const sql = "SELECT * FROM Funcionario,Pessoa where Funcionario.pes_cod=Pessoa.pes_cod";
+        const sql = "SELECT * FROM Funcionario,Pessoa where Funcionario.pes_cod=Pessoa.pes_cod AND Funcionario.fun_nivel='U'";
         const users = await db.consulta(sql);
         return response.json(users.data);
     },
