@@ -16,16 +16,16 @@ module.exports={
         return response.json(result);
     },
     async alterar(request,response){
-        const {ser_cod,car_id,cli_cod,fun_cod,ser_descricao,ser_maoObra,ser_inicio,ser_fim,ser_total,ser_status} = request.body;
-    
+        const {ser_cod,car_id,cli_cod,fun_cod,ser_descricao,ser_maoObra,ser_inicio,ser_total,ser_status} = request.body;
+        console.log(car_id);
       
         const con = await db.conecta();
-        const sql = "UPDATE servico SET car_id=?,cli_cod=? ,fun_cod=?"+
-                    "ser_descricao=?,ser_maoObra=?,ser_inicio=?,ser_fim=?, "+
+        const sql = "UPDATE servico SET car_id=?,cli_cod=? ,fun_cod=?,"+
+                    "ser_descricao=?,ser_maoObra=?,ser_inicio=?, "+
                     "ser_total=?,ser_status=? "+
                     "WHERE ser_cod = ?";
         
-        const valor = [car_id,cli_cod,fun_cod,ser_descricao,ser_maoObra,ser_inicio,ser_fim,ser_total,ser_status,ser_cod];
+        const valor = [car_id,cli_cod,fun_cod,ser_descricao,ser_maoObra,ser_inicio,ser_total,ser_status,ser_cod];
         const result = await db.manipula(sql,valor);
         return response.json(result);
     },
@@ -42,7 +42,8 @@ module.exports={
     async listarPorCliente(request,response){
         const {cod} = request.params;
         const con = await db.conecta();
-        const sql = "SELECT * FROM servico where cli_cod=?";
+        const sql = "select * from (SELECT * FROM servico where cli_cod=?)serv left join carro "+
+                    "on carro.car_id=serv.car_id";
         const valor = [cod];
         const sers = await db.consulta(sql,valor);
         return response.json(sers.data);
