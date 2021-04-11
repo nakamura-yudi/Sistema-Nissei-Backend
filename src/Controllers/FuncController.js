@@ -4,26 +4,26 @@ const db = require('../models/Database');
 module.exports={
     async gravar(request,response) {
  
-        const {pes_cod,fun_anoInicio,fun_senha} = request.body;
+        const {pes_cod,fun_anoInicio,fun_senha,fun_nivel} = request.body;
        
         //verificar se o professor ja esta cadastrado
         const con = await db.conecta();
-        const sql = "INSERT INTO Funcionario (pes_cod,fun_anoInicio,fun_senha,fun_nivel,fun_status) VALUES (?, ?, ?,'U',true)";
+        const sql = "INSERT INTO Funcionario (pes_cod,fun_anoInicio,fun_senha,fun_nivel,fun_status) VALUES (?, ?, ?,?,true)";
         
-        const valor = [pes_cod,fun_anoInicio,fun_senha];
+        const valor = [pes_cod,fun_anoInicio,fun_senha,fun_nivel];
         const result = await db.manipula(sql,valor);
         
         return response.json(result);
     },
     async alterar(request,response){
-        const {pes_cod,fun_anoInicio,fun_senha} = request.body;
+        const {pes_cod,fun_anoInicio,fun_senha,fun_nivel} = request.body;
     
       
         const con = await db.conecta();
-        const sql = "UPDATE Funcionario SET fun_anoInicio = ?, fun_senha = ? "+
+        const sql = "UPDATE Funcionario SET fun_anoInicio = ?, fun_senha = ?, fun_nivel=? "+
                     "WHERE pes_cod = ?";
         
-        const valor = [fun_anoInicio,fun_senha,pes_cod];
+        const valor = [fun_anoInicio,fun_senha,fun_nivel,pes_cod];
         const result = await db.manipula(sql,valor);
         return response.json(result);
     },
