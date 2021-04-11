@@ -86,10 +86,8 @@ module.exports={
         const sql = "UPDATE servico SET car_id=? "+
                     "WHERE car_id = ?";
         
-        const valor = ["",cod];
+        const valor = [null,cod];
         const result = await db.manipula(sql,valor);
-        console.log("estou no controller");
-        console.log(result);
         return response.json(result);
     }
 }
