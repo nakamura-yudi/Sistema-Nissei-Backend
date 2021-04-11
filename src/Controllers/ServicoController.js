@@ -77,5 +77,19 @@ module.exports={
         const valor = [cod];
         const sers = await db.consulta(sql,valor);
         return response.json(sers.data);
+    },
+    async alterarCarroNulo(request,response){
+        const {cod} = request.params;;
+    
+      
+        const con = await db.conecta();
+        const sql = "UPDATE servico SET car_id=? "+
+                    "WHERE car_id = ?";
+        
+        const valor = ["",cod];
+        const result = await db.manipula(sql,valor);
+        console.log("estou no controller");
+        console.log(result);
+        return response.json(result);
     }
 }

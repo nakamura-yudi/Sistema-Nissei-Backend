@@ -76,6 +76,7 @@ routes.get('/servico/:cod',servicoCtrl.procurarServico);
 routes.get('/servico/:datainicio/:datafim',servicoCtrl.listarPorData);
 routes.get('/servico',servicoCtrl.listar);
 routes.put('/servico',servicoCtrl.alterar);
+routes.put('/servicoCarro/:cod',servicoCtrl.alterarCarroNulo);
 
 routes.post('/servicopeca',serPecaCtrl.gravar);
 routes.put('/servicopeca',serPecaCtrl.alterar);
