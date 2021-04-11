@@ -47,13 +47,18 @@ module.exports={
     async deletar(request,response){
         const cod = request.params.cod;
         const con = await db.conecta();
+        const sql3 = "DELETE FROM contato WHERE pes_cod=?";
+        result = await db.manipula(sql2,valor);
+       
         const sql = "DELETE FROM Cliente WHERE pes_cod=?";
         
         const valor = [cod];
-        const result = await db.consulta(sql,valor);
+        var result = await db.manipula(sql,valor);
+        console.log(result);
         const sql2 = "DELETE FROM Pessoa WHERE pes_cod=?";
         result = await db.manipula(sql2,valor);
-        return response.json(result.data);
+       
+        return response.json(result);
     },
     async deletarLogico(request,response){
         const cod = request.params.cod;
