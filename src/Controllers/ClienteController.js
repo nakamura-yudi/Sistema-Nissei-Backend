@@ -8,7 +8,7 @@ module.exports={
        
         //verificar se o professor ja esta cadastrado
         const con = await db.conecta();
-        const sql = "INSERT INTO Cliente (pes_cod,cli_bairro,cli_rua,cli_cidade,cli_uf,cli_cep) VALUES (?, ?, ?, ?, ?, ?)";
+        const sql = "INSERT INTO Cliente (pes_cod,cli_bairro,cli_rua,cli_cidade,cli_uf,cli_cep,cli_status) VALUES (?, ?, ?, ?, ?, ?,true)";
         
         const valor = [pes_cod,cli_bairro,cli_rua,cli_cidade,cli_uf,cli_cep];
         const result = await db.manipula(sql,valor);
@@ -51,6 +51,8 @@ module.exports={
         
         const valor = [cod];
         const result = await db.consulta(sql,valor);
+        const sql2 = "DELETE FROM Pessoa WHERE pes_cod=?";
+        result = await db.manipula(sql2,valor);
         return response.json(result.data);
     },
     async deletarLogico(request,response){
