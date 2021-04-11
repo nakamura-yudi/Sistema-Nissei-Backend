@@ -47,14 +47,15 @@ module.exports={
     async deletar(request,response){
         const cod = request.params.cod;
         const con = await db.conecta();
+        const valor = [cod];
         const sql3 = "DELETE FROM contato WHERE pes_cod=?";
-        result = await db.manipula(sql2,valor);
+        var result = await db.manipula(sql3,valor);
        
         const sql = "DELETE FROM Cliente WHERE pes_cod=?";
         
-        const valor = [cod];
-        var result = await db.manipula(sql,valor);
-        console.log(result);
+        
+        result = await db.manipula(sql,valor);
+      
         const sql2 = "DELETE FROM Pessoa WHERE pes_cod=?";
         result = await db.manipula(sql2,valor);
        
