@@ -58,7 +58,7 @@ module.exports={
         const filtro = request.params.filtro;
         const con = await db.conecta();
         const sql = "SELECT * FROM Pessoa,Cliente WHERE Pessoa.pes_cod=Cliente.pes_cod AND UPPER(Pessoa.pes_nome) like UPPER(?) AND Cliente.cli_status=true";
-        const valor = [filtro+"%"];
+        const valor = ["%"+filtro+"%"];
         const users = await db.consulta(sql,valor);
         return response.json(users.data);
     },
@@ -72,7 +72,7 @@ module.exports={
         const filtro = request.params.filtro;
         const con = await db.conecta();
         const sql = "SELECT * FROM Pessoa,Funcionario WHERE Pessoa.pes_cod=Funcionario.pes_cod AND Funcionario.fun_nivel='U' AND UPPER(Pessoa.pes_nome) like UPPER(?) AND Funcionario.fun_status=true";
-        const valor = [filtro+"%"];
+        const valor = ["%"+filtro+"%"];
         const users = await db.consulta(sql,valor);
         return response.json(users.data);
     },

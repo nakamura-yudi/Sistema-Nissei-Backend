@@ -20,6 +20,7 @@ routes.get('/peca',pecaController.listar);
 routes.delete('/peca/:cod',pecaController.deletar);
 routes.get('/pecafiltro/:filtro',pecaController.listarPorFiltro);
 
+
 routes.post('/carro',carroController.gravar);
 routes.put('/carro',carroController.alterar);
 routes.put('/carroLog/:cod',carroController.deletarLogico);
@@ -82,7 +83,6 @@ routes.post('/servicopeca',serPecaCtrl.gravar);
 routes.put('/servicopeca',serPecaCtrl.alterar);
 routes.delete('/servicopeca/:ser_cod/:pec_cod',serPecaCtrl.deletar);
 routes.get('/servicopeca/:ser_cod',serPecaCtrl.listar);
-routes.get('/serpeca/:cod',serPecaCtrl.listarPeca);
 
 
 routes.post('/conta',contaCtrl.gravar);

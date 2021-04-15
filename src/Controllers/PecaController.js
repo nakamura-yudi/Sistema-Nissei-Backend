@@ -49,7 +49,7 @@ module.exports={
         const filtro = request.params.filtro;
         const con = await db.conecta();
         const sql = "SELECT * FROM peca WHERE UPPER(pec_descricao) LIKE UPPER(?)";
-        const valor = [filtro+"%"];
+        const valor = ["%"+filtro+"%"];
         const pecas = await db.consulta(sql,valor);
         return response.json(pecas.data);
     },
