@@ -41,7 +41,7 @@ module.exports={
     async listar(request,response){
         const {ser_cod} = request.params;
         const con = await db.conecta();
-        const sql = "SELECT * FROM servicopecas s,peca p where s.ser_cod=? and s.pec_cod=c.pec_cod";
+        const sql = "SELECT * FROM servicopecas s,peca p where s.ser_cod=? and s.pec_cod=p.pec_cod";
         const valor = [ser_cod];
         const pecas = await db.consulta(sql,valor);
         return response.json(pecas.data);
