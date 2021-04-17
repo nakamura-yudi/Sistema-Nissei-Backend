@@ -29,6 +29,16 @@ module.exports={
         const result = await db.manipula(sql,valor);
         return response.json(result);
     },
+    async alterarStatus(request,response){
+        const {ser_cod,ser_total,ser_fim} = request.params;
+        const con = await db.conecta();
+        const sql = "UPDATE servico SET ser_status=true,ser_fim=?, ser_total "+
+                    "WHERE ser_cod = ?";
+        
+        const valor = [cod];
+        const result = await db.manipula(sql,valor);
+        return response.json(result);
+    },
     async procurarServico(request,response){
         const {cod} = request.params;
         const con = await db.conecta();
