@@ -73,40 +73,92 @@ module.exports={
         return response.json(sers.data);
     },
     async listarFiltros(request,response){
-        const {cli_nome,fun_cod,dt_inicio,dt_saida,mar_cod,car_placa,status} = request.body;
+        const cli_nome = request.query["cliente"];
+        const fun_cod = request.query["fun_cod"];
+        const dt_inicio = request.query["dt_inicio"];
+        const dt_saida = request.query["dt_saida"];
+        const mar_cod = request.query["mar_cod"];
+        const car_placa = request.query["car_placa"];
+        const status = request.query["status"];
+        //,fun_cod,dt_inicio,dt_saida,mar_cod,car_placa,status
+        let hasParameter=false;
         const con = await db.conecta();
         let valor=[];
-        let sql="SELECT s.ser_cod,mar_descricao,p.pes_nome,c.car_placa,s.ser_inicio, ser_status,ser_total ";
-        sql+="from Cliente cli,Servico s,Carro c, Marca m, Pessoa p WHERE p.pes_cod=cli.pes_cod ";
-        sql+="and s.car_id=c.car_id and m.mar_cod=c.mar_cod and s.cli_cod = cli.pes_cod "
-        if(status!=undefined){
-            sql+=" and ser_status=?"
+        /*
+        let sql="SELECT s.ser_cod,mar_descricao,p.pes_nome as cli_nome,p2.pes_nome as fun_nome,c.car_placa,s.ser_inicio, ser_status,ser_total ";
+        sql+="from Cliente cli,Servico s,Carro c, Marca m, Pessoa p,Pessoa p2 WHERE p.pes_cod=cli.pes_cod ";
+        sql+="and s.car_id=c.car_id and m.mar_cod=c.mar_cod and s.cli_cod = p.pes_cod and s.fun_cod=p2.pes_cod";*/
+        let sql;
+        sql="select s.ser_cod,mar_descricao,p.pes_nome as cli_nome,p2.pes_nome as fun_nome,c.car_placa,s.ser_inicio, ser_status,ser_total";
+        sql+=" from (Servico s";
+        sql+=" left join Carro c on s.car_id=c.car_id"; 
+        sql+=" left join Marca m on c.mar_cod=m.mar_cod";
+        sql+=" left join Pessoa p on s.cli_cod=p.pes_cod";
+        sql+=" left join Pessoa p2 on s.fun_cod=p2.pes_cod) ";
+        if(status){
+            sql+=" where s.ser_status=?"
             valor.push(status);
+            hasParameter=true;
         }
-        if(cli_nome!=undefined){
+        
+        if(cli_nome){
+            if(hasParameter)
+                sql+=" and";
+            else
+                sql+=" where";
+            hasParameter=true;
 
-            sql+=" and UPPER(cli.cli_nome) LIKE UPPER(?)";
-            
+            sql+=" UPPER(p.pes_nome) LIKE UPPER(?)";
             valor.push("%"+cli_nome+"%");
         }
-        if(fun_cod!=undefined){
-            sql+=" and s.fun_cod=?";
+        if(fun_cod){
+            if(hasParameter)
+                sql+=" and";
+            else
+                sql+=" where";
+            sql+=" s.fun_cod=?";
+            hasParameter=true;
+            
             valor.push(fun_cod);
         }
-        if(dt_inicio!=undefined){
-            sql+=" and s.ser_inicio>=?";
+        if(dt_inicio){
+            if(hasParameter)
+                sql+=" and";
+            else
+                sql+=" where";
+            hasParameter=true;
+
+            sql+=" s.ser_inicio>=?";
             valor.push(dt_inicio);
         }
-        if(dt_saida!=undefined){
-            sql+=" and s.ser_inicio<=?";
+        if(dt_saida){
+            if(hasParameter)
+                sql+=" and";
+            else
+                sql+=" where";
+            hasParameter=true;
+
+            sql+=" s.ser_inicio<=?";
             valor.push(dt_saida);
         }
-        if(mar_cod!=undefined){
-            sql+=" and c.mar_cod=?";
+        if(mar_cod){
+            if(hasParameter)
+                sql+=" and";
+            else
+                sql+=" where";
+            hasParameter=true;
+
+            sql+=" m.mar_cod=?";
             valor.push(mar_cod);
         }
-        if(car_placa!=undefined){
-            sql+=" and UPPER(c.car_placa) LIKE UPPER(?)";
+        if(car_placa){
+            if(hasParameter)
+                sql+=" and";
+            else
+                sql+=" where";
+            hasParameter=true;
+
+            sql+=" UPPER(c.car_placa) LIKE UPPER(?)";
             valor.push("%"+car_placa+"%");
         }
         /*

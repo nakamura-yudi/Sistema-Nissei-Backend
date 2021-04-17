@@ -4,14 +4,14 @@ const db=require('../models/Database');
 module.exports={
     async listar(request,response){
         const con = await db.conecta();
-        const sql = "SELECT * FROM carro";
+        const sql = "SELECT * FROM carro where car_status=1";
         const users = await db.consulta(sql);
         return response.json(users.data);
     },
     async listarPorMarca(request,response){
         const cod = request.params.cod;
         const con = await db.conecta();
-        const sql = "SELECT * FROM carro where mar_cod=?";
+        const sql = "SELECT * FROM carro where mar_cod=? and car_status=1";
         const valor=[cod];
         const users = await db.consulta(sql,valor);
         return response.json(users.data);
@@ -29,7 +29,7 @@ module.exports={
     async procurarCodPessoa(request,response){
         const cod = request.params.cod;
         const con = await db.conecta();
-        const sql = "SELECT * FROM Carro WHERE pes_cod=?";
+        const sql = "SELECT * FROM Carro WHERE pes_cod=? and car_status=1";
         
         const valor = [cod];
         const result = await db.consulta(sql,valor);
@@ -88,6 +88,7 @@ module.exports={
         
         const valor = [cod];
         const result = await db.manipula(sql,valor);
+        console.log(result);
         return response.json(result.data);
     }
 }
