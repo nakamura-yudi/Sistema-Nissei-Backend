@@ -74,7 +74,7 @@ routes.get('/servicoCarro/:cod',servicoCtrl.listarPorCarro);
 routes.get('/servicoCliente/:cod',servicoCtrl.listarPorCliente);
 routes.get('/servicoFuncionario/:cod',servicoCtrl.listarPorFuncionario);
 routes.get('/servico/:cod',servicoCtrl.procurarServico);
-routes.get('/servico/:datainicio/:datafim',servicoCtrl.listarPorData);
+routes.get('/servicoFiltro',servicoCtrl.listarFiltros);
 routes.get('/servico',servicoCtrl.listar);
 routes.put('/servico',servicoCtrl.alterar);
 routes.put('/servicoCarro/:cod',servicoCtrl.alterarCarroNulo);

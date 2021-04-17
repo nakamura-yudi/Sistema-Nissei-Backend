@@ -62,13 +62,48 @@ module.exports={
         const sers = await db.consulta(sql);
         return response.json(sers.data);
     },
-    async listarPorData(request,response){
-        const {datainicio} = request.params;
-        const {datafim} = request.params;
+    async listarFiltros(request,response){
+        const {cli_nome,fun_cod,dt_inicio,dt_saida,mar_cod,car_placa,status} = request.body;
         const con = await db.conecta();
+        let valor=[];
+        let sql="SELECT s.ser_cod,mar_descricao,p.pes_nome,c.car_placa,s.ser_inicio, ser_status,ser_total ";
+        sql+="from Cliente cli,Servico s,Carro c, Marca m, Pessoa p WHERE p.pes_cod=cli.pes_cod ";
+        sql+="and s.car_id=c.car_id and m.mar_cod=c.mar_cod and s.cli_cod = cli.pes_cod "
+        if(status!=undefined){
+            sql+=" and ser_status=?"
+            valor.push(status);
+        }
+        if(cli_nome!=undefined){
+
+            sql+=" and UPPER(cli.cli_nome) LIKE UPPER(?)";
+            
+            valor.push("%"+cli_nome+"%");
+        }
+        if(fun_cod!=undefined){
+            sql+=" and s.fun_cod=?";
+            valor.push(fun_cod);
+        }
+        if(dt_inicio!=undefined){
+            sql+=" and s.ser_inicio>=?";
+            valor.push(dt_inicio);
+        }
+        if(dt_saida!=undefined){
+            sql+=" and s.ser_inicio<=?";
+            valor.push(dt_saida);
+        }
+        if(mar_cod!=undefined){
+            sql+=" and c.mar_cod=?";
+            valor.push(mar_cod);
+        }
+        if(car_placa!=undefined){
+            sql+=" and UPPER(c.car_placa) LIKE UPPER(?)";
+            valor.push("%"+car_placa+"%");
+        }
+        /*
         const sql = "SELECT * FROM servico where CURRENT_DATE()>="+datainicio+ " AND CURRENT_DATE()<="+datafim;
-        
+        */
         const sers = await db.consulta(sql,valor);
+        console.log(sers);
         return response.json(sers.data);
     },
     async listarPorFuncionario(request,response){
