@@ -58,14 +58,12 @@ module.exports={
     
       
         const con = await db.conecta();
-        let sql = "UPDATE marca set mar_status=false "+
+        var sql = "UPDATE marca set mar_status=false "+
                     "WHERE mar_cod = ?";
         
         const valor = [cod];
-        let result = await db.manipula(sql,valor);
-        sql = "UPDATE Carro set mar_cod=null where mar_cod=?";
- 
-        result = await db.manipula(sql,valor);
+        const result = await db.manipula(sql,valor);
+
         return response.json(result);
     },
     async excluir(request,response){

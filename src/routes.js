@@ -29,6 +29,7 @@ routes.get('/carro/:cod',carroController.procurarCod);
 routes.get('/carroPes/:cod',carroController.procurarCodPessoa);
 routes.get('/carroMarca/:cod',carroController.listarPorMarca);
 routes.delete('/carro/:cod',carroController.deletar);
+routes.put('/carroNull/:cod',carroController.alterarNull);
 
 routes.get('/marcas',marcaCtrl.listar);
 routes.post('/marcas',marcaCtrl.gravar);
@@ -78,6 +79,7 @@ routes.get('/servicoFiltro',servicoCtrl.listarFiltros);
 routes.get('/servico',servicoCtrl.listar);
 routes.put('/servico',servicoCtrl.alterar);
 routes.put('/servicoCarro/:cod',servicoCtrl.alterarCarroNulo);
+routes.put('/servicoFechar',servicoCtrl.alterarStatus);
 
 routes.post('/servicopeca',serPecaCtrl.gravar);
 routes.put('/servicopeca',serPecaCtrl.alterar);
