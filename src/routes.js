@@ -29,7 +29,7 @@ routes.get('/carro/:cod',carroController.procurarCod);
 routes.get('/carroPes/:cod',carroController.procurarCodPessoa);
 routes.get('/carroMarca/:cod',carroController.listarPorMarca);
 routes.delete('/carro/:cod',carroController.deletar);
-routes.put('/carroNull/:cod',carroController.alterarNull);
+routes.put('/carroMarcaNull/:cod',carroController.alterarCarroNull);
 
 routes.get('/marcas',marcaCtrl.listar);
 routes.post('/marcas',marcaCtrl.gravar);

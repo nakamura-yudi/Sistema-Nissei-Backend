@@ -81,10 +81,10 @@ module.exports={
         const result = await db.manipula(sql,valor);
         return response.json(result.data);
     },
-    async alterarNull(request,response){
+    async alterarCarroNull(request,response){
         const cod = request.params.cod;
         const con = await db.conecta();
-        const sql = "UPDATE carro SET mar_cod=null WHERE car_id = ?";
+        const sql = "UPDATE carro SET mar_cod=null WHERE mar_cod = ?";
         
         const valor = [cod];
         const result = await db.manipula(sql,valor);
