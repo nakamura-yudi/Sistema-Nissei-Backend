@@ -85,6 +85,7 @@ routes.post('/servicopeca',serPecaCtrl.gravar);
 routes.put('/servicopeca',serPecaCtrl.alterar);
 routes.delete('/servicopeca/:ser_cod/:pec_cod',serPecaCtrl.deletar);
 routes.get('/servicopeca/:ser_cod',serPecaCtrl.listar);
+routes.get('/servicoPecasPeca/:pec_cod',serPecaCtrl.listarPecas);
 
 
 routes.post('/conta',contaCtrl.gravar);

@@ -4,7 +4,7 @@ const db=require('../models/Database');
 module.exports={
     async listar(request,response){
         const con = await db.conecta();
-        const sql = "SELECT * FROM peca";
+        const sql = "SELECT * FROM peca where pec_status=true";
         const users = await db.consulta(sql);
         return response.json(users.data);
     },
@@ -23,7 +23,7 @@ module.exports={
         const {pec_descricao} = request.body;
   
         const con = await db.conecta();
-        const sql = "INSERT INTO peca (pec_descricao) VALUES (?)";
+        const sql = "INSERT INTO peca (pec_descricao,pec_status) VALUES (?,true)";
         
         const valor = [pec_descricao];
         const result = await db.manipula(sql,valor);
@@ -48,7 +48,7 @@ module.exports={
     async listarPorFiltro(request,response){
         const filtro = request.params.filtro;
         const con = await db.conecta();
-        const sql = "SELECT * FROM peca WHERE UPPER(pec_descricao) LIKE UPPER(?)";
+        const sql = "SELECT * FROM peca WHERE UPPER(pec_descricao) LIKE UPPER(?) AND pec_status=true";
         const valor = ["%"+filtro+"%"];
         const pecas = await db.consulta(sql,valor);
         return response.json(pecas.data);
