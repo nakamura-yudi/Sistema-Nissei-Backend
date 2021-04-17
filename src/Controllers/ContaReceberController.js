@@ -5,13 +5,14 @@ const db = require('../models/Database');
 module.exports={
     async gravar(request,response) {
  
-        const {con_cod,ser_cod,con_valor,con_metodo,con_status} = request.body;
+        const {con_cod,ser_cod,con_valor,con_dtVencimento} = request.body;
        
         //verificar se o professor ja esta cadastrado
         const con = await db.conecta();
-        const sql = "INSERT INTO conta_receber (con_cod,ser_cod,con_valor,con_metodo,con_status) VALUES (?, ?, ?, ?,?)";
+  
+        const sql = "INSERT INTO conta_receber (con_cod,ser_cod,con_valor,con_dtVencimento) VALUES (?, ?, ?, ?)";
         
-        const valor = [con_cod,ser_cod,con_valor,con_metodo,con_status];
+        const valor = [con_cod,ser_cod,con_valor,con_dtVencimento];
         const result = await db.manipula(sql,valor);
         
         return response.json(result);
