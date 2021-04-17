@@ -18,14 +18,14 @@ module.exports={
         return response.json(result);
     },
     async alterar(request,response){
-        const {con_cod,ser_cod,con_valor,con_metodo,con_status} = request.body;
+        const {con_cod,ser_cod,con_dtPgto} = request.body;
     
       
         const con = await db.conecta();
-        const sql = "UPDATE conta_receber SET con_valor=?,con_metodo=? ,con_status=? "+
+        const sql = "UPDATE conta_receber SET con_dtPgto=? "+
                     "WHERE con_cod = ? AND ser_cod=?";
         
-        const valor = [con_valor,con_metodo,con_status,con_cod,ser_cod];
+        const valor = [con_dtPgto,con_cod,ser_cod];
         const result = await db.manipula(sql,valor);
         return response.json(result);
     },
