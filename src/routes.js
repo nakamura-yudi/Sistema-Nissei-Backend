@@ -79,6 +79,7 @@ routes.get('/servicoFiltro',servicoCtrl.listarFiltros);
 routes.get('/servico',servicoCtrl.listar);
 routes.put('/servico',servicoCtrl.alterar);
 routes.put('/servicoCarro/:cod',servicoCtrl.alterarCarroNulo);
+routes.put('/servicoFuncNull/:cod',servicoCtrl.alterarFuncionarioNulo);
 routes.put('/servicoFechar',servicoCtrl.alterarStatus);
 
 routes.post('/servicopeca',serPecaCtrl.gravar);

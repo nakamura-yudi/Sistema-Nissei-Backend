@@ -16,23 +16,23 @@ module.exports={
         return response.json(result);
     },
     async alterar(request,response){
-        const {ser_cod,car_id,cli_cod,fun_cod,ser_descricao,ser_maoObra,ser_inicio,ser_total,ser_status} = request.body;
+        const {ser_cod,car_id,fun_cod,ser_descricao,ser_maoObra,ser_inicio,ser_total,ser_status} = request.body;
         console.log(car_id);
       
         const con = await db.conecta();
-        const sql = "UPDATE servico SET car_id=?,cli_cod=? ,fun_cod=?,"+
+        const sql = "UPDATE servico SET car_id=? ,fun_cod=?,"+
                     "ser_descricao=?,ser_maoObra=?,ser_inicio=?, "+
                     "ser_total=?,ser_status=? "+
                     "WHERE ser_cod = ?";
         
-        const valor = [car_id,cli_cod,fun_cod,ser_descricao,ser_maoObra,ser_inicio,ser_total,ser_status,ser_cod];
+        const valor = [car_id,fun_cod,ser_descricao,ser_maoObra,ser_inicio,ser_total,ser_status,ser_cod];
         const result = await db.manipula(sql,valor);
         return response.json(result);
     },
     async alterarStatus(request,response){
         const {ser_cod,ser_total,ser_fim} = request.body;
         const con = await db.conecta();
-        const sql = "UPDATE servico SET ser_status=true,ser_fim=?, ser_total=? "+
+        const sql = "UPDATE servico SET ser_status=false,ser_fim=?, ser_total=? "+
                     "WHERE ser_cod = ?";
         
         const valor = [ser_fim,ser_total,ser_cod];
@@ -89,7 +89,7 @@ module.exports={
         sql+="from Cliente cli,Servico s,Carro c, Marca m, Pessoa p,Pessoa p2 WHERE p.pes_cod=cli.pes_cod ";
         sql+="and s.car_id=c.car_id and m.mar_cod=c.mar_cod and s.cli_cod = p.pes_cod and s.fun_cod=p2.pes_cod";*/
         let sql;
-        sql="select s.ser_cod,mar_descricao,p.pes_nome as cli_nome,p2.pes_nome as fun_nome,c.car_placa,s.ser_inicio, ser_status,ser_total";
+        sql="select s.ser_cod,mar_descricao,p.pes_nome as cli_nome,s.cli_cod as cli_cod,p2.pes_nome as fun_nome,c.car_placa,s.ser_inicio, ser_status,ser_total";
         sql+=" from (Servico s";
         sql+=" left join Carro c on s.car_id=c.car_id"; 
         sql+=" left join Marca m on c.mar_cod=m.mar_cod";
@@ -183,6 +183,18 @@ module.exports={
         const con = await db.conecta();
         const sql = "UPDATE servico SET car_id=? "+
                     "WHERE car_id = ?";
+        
+        const valor = [null,cod];
+        const result = await db.manipula(sql,valor);
+        return response.json(result);
+    },
+    async alterarFuncionarioNulo(request,response){
+        const {cod} = request.params;;
+    
+      
+        const con = await db.conecta();
+        const sql = "UPDATE servico SET fun_cod=? "+
+                    "WHERE fun_cod = ? and ser_status=true";
         
         const valor = [null,cod];
         const result = await db.manipula(sql,valor);
