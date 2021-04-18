@@ -92,5 +92,7 @@ routes.get('/servicoPecasPeca/:pec_cod',serPecaCtrl.listarPecas);
 routes.post('/conta',contaCtrl.gravar);
 routes.put('/conta',contaCtrl.alterar);
 routes.delete('/conta/:con_cod/:ser_cod',contaCtrl.deletar);
+routes.delete('/contaPorServico/:ser_cod',contaCtrl.deletarPorServico);
 routes.get('/conta/:ser_cod',contaCtrl.listar);
+routes.get('/contaPaga/:ser_cod',contaCtrl.listarContasPagas);
 module.exports=routes;

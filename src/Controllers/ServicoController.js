@@ -30,12 +30,12 @@ module.exports={
         return response.json(result);
     },
     async alterarStatus(request,response){
-        const {ser_cod,ser_total,ser_fim} = request.body;
+        const {ser_cod,ser_total,ser_fim,ser_status} = request.body;
         const con = await db.conecta();
-        const sql = "UPDATE servico SET ser_status=false,ser_fim=?, ser_total=? "+
+        const sql = "UPDATE servico SET ser_status=?,ser_fim=?, ser_total=? "+
                     "WHERE ser_cod = ?";
         
-        const valor = [ser_fim,ser_total,ser_cod];
+        const valor = [ser_status,ser_fim,ser_total,ser_cod];
         const result = await db.manipula(sql,valor);
         return response.json(result);
     },

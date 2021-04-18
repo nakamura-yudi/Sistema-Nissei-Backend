@@ -41,10 +41,29 @@ module.exports={
         const result = await db.manipula(sql,valor);
         return response.json(result);
     },
+    async deletarPorServico(request,response){
+        const {ser_cod} = request.params;
+      
+        const con = await db.conecta();
+        const sql = "DELETE FROM conta_receber WHERE ser_cod=? "
+              
+        
+        const valor = [ser_cod];
+        const result = await db.manipula(sql,valor);
+        return response.json(result);
+    },
     async listar(request,response){
         const {ser_cod} = request.params;
         const con = await db.conecta();
         const sql = "SELECT * FROM conta_receber where ser_cod=?";
+        const valor = [ser_cod];
+        const contas = await db.consulta(sql,valor);
+        return response.json(contas.data);
+    },
+    async listarContasPagas(request,response){
+        const {ser_cod} = request.params;
+        const con = await db.conecta();
+        const sql = "SELECT * FROM conta_receber where ser_cod=? and con_dtPgto is not null";
         const valor = [ser_cod];
         const contas = await db.consulta(sql,valor);
         return response.json(contas.data);
