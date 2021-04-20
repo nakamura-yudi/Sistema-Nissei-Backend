@@ -4,7 +4,7 @@ const db=require('../models/Database');
 module.exports={
     async listar(request,response){
         const con = await db.conecta();
-        const sql = "SELECT * FROM marca";
+        const sql = "SELECT * FROM marca where mar_status=true";
         const users = await db.consulta(sql);
         return response.json(users.data);
     },
