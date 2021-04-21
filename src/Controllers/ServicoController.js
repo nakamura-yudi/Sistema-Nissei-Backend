@@ -189,7 +189,7 @@ module.exports={
         return response.json(result);
     },
     async alterarFuncionarioNulo(request,response){
-        const {cod} = request.params;;
+        const {cod} = request.params;
     
       
         const con = await db.conecta();
