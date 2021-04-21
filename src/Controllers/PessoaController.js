@@ -50,7 +50,7 @@ module.exports={
     },
     async listarCliente(request,response){
         const con = await db.conecta();
-        const sql = "SELECT * FROM Pessoa,Cliente WHERE Pessoa.pes_cod=Cliente.pes_cod";
+        const sql = "SELECT * FROM Pessoa,Cliente WHERE Pessoa.pes_cod=Cliente.pes_cod AND Cliente.cli_status=true";
         const users = await db.consulta(sql);
         return response.json(users.data);
     },
