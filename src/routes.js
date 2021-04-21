@@ -77,6 +77,7 @@ routes.get('/servicoFuncionario/:cod',servicoCtrl.listarPorFuncionario);
 routes.get('/servico/:cod',servicoCtrl.procurarServico);
 routes.get('/servicoFiltro',servicoCtrl.listarFiltros);
 routes.get('/servico',servicoCtrl.listar);
+routes.get('/servicoInfo/:cod',servicoCtrl.consultarServico);
 routes.put('/servico',servicoCtrl.alterar);
 routes.put('/servicoCarro/:cod',servicoCtrl.alterarCarroNulo);
 routes.put('/servicoFuncNull/:cod',servicoCtrl.alterarFuncionarioNulo);

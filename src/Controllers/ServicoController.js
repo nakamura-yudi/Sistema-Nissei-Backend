@@ -199,5 +199,17 @@ module.exports={
         const valor = [null,cod];
         const result = await db.manipula(sql,valor);
         return response.json(result);
+    },
+    async consultarServico(request,response){
+        const {cod} = request.params;
+        const con = await db.conecta();
+        let sql = "SELECT ser_inicio,ser_fim,ser_descricao,ser_maoObra,ser_total,p.pes_nome as cli_nome, p1.pes_nome as func_nome,c.car_placa ";
+        sql+="FROM (Servico s ";
+        sql+="left join Pessoa p on cli_cod=p.pes_cod ";
+        sql+="left join Pessoa p1 on fun_cod=p1.pes_cod ";
+        sql+="left join Carro c on s.car_id=c.car_id) where s.ser_cod=?";
+        const valor = [cod];
+        const sers = await db.consulta(sql,valor);
+        return response.json(sers.data);
     }
 }
