@@ -203,7 +203,7 @@ module.exports={
     async consultarServico(request,response){
         const {cod} = request.params;
         const con = await db.conecta();
-        let sql = "SELECT ser_inicio,ser_fim,ser_descricao,ser_maoObra,ser_total,p.pes_nome as cli_nome, p1.pes_nome as func_nome,c.car_placa ";
+        let sql = "SELECT ser_inicio,ser_status,p.pes_cod,ser_fim,ser_descricao,ser_maoObra,ser_total,p.pes_nome as cli_nome, p1.pes_nome as func_nome,c.car_placa ";
         sql+="FROM (Servico s ";
         sql+="left join Pessoa p on cli_cod=p.pes_cod ";
         sql+="left join Pessoa p1 on fun_cod=p1.pes_cod ";
