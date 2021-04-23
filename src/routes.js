@@ -96,4 +96,5 @@ routes.delete('/conta/:con_cod/:ser_cod',contaCtrl.deletar);
 routes.delete('/contaPorServico/:ser_cod',contaCtrl.deletarPorServico);
 routes.get('/conta/:ser_cod',contaCtrl.listar);
 routes.get('/contaPaga/:ser_cod',contaCtrl.listarContasPagas);
+routes.get('/contaFiltros',contaCtrl.listarFiltros);
 module.exports=routes;

@@ -67,6 +67,47 @@ module.exports={
         const valor = [ser_cod];
         const contas = await db.consulta(sql,valor);
         return response.json(contas.data);
+    },
+    async listarFiltros(request,response){
+        const dtInicio = request.query["dt_inicio"];
+        const dtFim = request.query["dt_fim"];
+        const status = request.query["status"];
+        let hasParameter=false;
+
+        let valor=[];
+        const con = await db.conecta();
+        let sql = "SELECT * FROM conta_receber ";
+        if(dtInicio){
+            
+            sql+=" where con_dtVencimento >= ?"
+            valor.push(dtInicio);
+            hasParameter=true;
+        }
+        if(dtFim){
+            if(hasParameter)
+                sql+=" and";
+            else
+                sql+=" where";
+            hasParameter=true;
+
+            sql+=" con_dtVencimento<=?";
+            valor.push(dtFim);
+        }
+        if(status){
+            
+                
+            if(hasParameter)
+                sql+=" and";
+            else
+                sql+=" where";
+            hasParameter=true;
+            if(status=="Pagamento efetuado")
+                sql+=" con_dtPgto is not null";
+            else
+            sql+=" con_dtPgto is null";
+        }
+        const contas = await db.consulta(sql,valor);
+        return response.json(contas.data);
     }
   
 }

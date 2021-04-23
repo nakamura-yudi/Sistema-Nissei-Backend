@@ -111,16 +111,7 @@ module.exports={
             sql+=" UPPER(p.pes_nome) LIKE UPPER(?)";
             valor.push("%"+cli_nome+"%");
         }
-        if(fun_cod){
-            if(hasParameter)
-                sql+=" and";
-            else
-                sql+=" where";
-            sql+=" s.fun_cod=?";
-            hasParameter=true;
-            
-            valor.push(fun_cod);
-        }
+ 
         if(dt_inicio){
             if(hasParameter)
                 sql+=" and";
@@ -141,16 +132,7 @@ module.exports={
             sql+=" s.ser_inicio<=?";
             valor.push(dt_saida);
         }
-        if(mar_cod){
-            if(hasParameter)
-                sql+=" and";
-            else
-                sql+=" where";
-            hasParameter=true;
-
-            sql+=" m.mar_cod=?";
-            valor.push(mar_cod);
-        }
+      
         if(car_placa){
             if(hasParameter)
                 sql+=" and";
