@@ -5,37 +5,37 @@ const db = require('../models/Database');
 module.exports={
     async gravar(request,response) {
  
-        const {car_id,cli_cod,fun_cod,ser_descricao,ser_maoObra,ser_inicio,ser_total,ser_status} = request.body;
+        const {car_id,cli_cod,fun_cod,ser_descricao,ser_maoObra,ser_inicio,ser_status} = request.body;
         //verificar se o professor ja esta cadastrado
         const con = await db.conecta();
-        const sql = "INSERT INTO servico (car_id,cli_cod,fun_cod,ser_descricao,ser_maoObra,ser_inicio,ser_fim,ser_total,ser_status) VALUES (?, ?, ?, ?,?, ?, null,?,?)";
+        const sql = "INSERT INTO servico (car_id,cli_cod,fun_cod,ser_descricao,ser_maoObra,ser_inicio,ser_fim,ser_status) VALUES (?, ?, ?,?, ?,?, null,?)";
         
-        const valor = [car_id,cli_cod,fun_cod,ser_descricao,ser_maoObra,ser_inicio,ser_total,ser_status];
+        const valor = [car_id,cli_cod,fun_cod,ser_descricao,ser_maoObra,ser_inicio,ser_status];
         const result = await db.manipula(sql,valor);
         console.log(result);
         return response.json(result);
     },
     async alterar(request,response){
-        const {ser_cod,car_id,fun_cod,ser_descricao,ser_maoObra,ser_inicio,ser_total,ser_status} = request.body;
+        const {ser_cod,car_id,fun_cod,ser_descricao,ser_maoObra,ser_inicio,ser_status} = request.body;
         console.log(car_id);
       
         const con = await db.conecta();
         const sql = "UPDATE servico SET car_id=? ,fun_cod=?,"+
                     "ser_descricao=?,ser_maoObra=?,ser_inicio=?, "+
-                    "ser_total=?,ser_status=? "+
+                    "ser_status=? "+
                     "WHERE ser_cod = ?";
         
-        const valor = [car_id,fun_cod,ser_descricao,ser_maoObra,ser_inicio,ser_total,ser_status,ser_cod];
+        const valor = [car_id,fun_cod,ser_descricao,ser_maoObra,ser_inicio,ser_status,ser_cod];
         const result = await db.manipula(sql,valor);
         return response.json(result);
     },
     async alterarStatus(request,response){
         const {ser_cod,ser_total,ser_fim,ser_status} = request.body;
         const con = await db.conecta();
-        const sql = "UPDATE servico SET ser_status=?,ser_fim=?, ser_total=? "+
+        const sql = "UPDATE servico SET ser_status=?,ser_fim=? "+
                     "WHERE ser_cod = ?";
         
-        const valor = [ser_status,ser_fim,ser_total,ser_cod];
+        const valor = [ser_status,ser_fim,ser_cod];
         const result = await db.manipula(sql,valor);
         return response.json(result);
     },
@@ -89,7 +89,7 @@ module.exports={
         sql+="from Cliente cli,Servico s,Carro c, Marca m, Pessoa p,Pessoa p2 WHERE p.pes_cod=cli.pes_cod ";
         sql+="and s.car_id=c.car_id and m.mar_cod=c.mar_cod and s.cli_cod = p.pes_cod and s.fun_cod=p2.pes_cod";*/
         let sql;
-        sql="select s.ser_cod,mar_descricao,p.pes_nome as cli_nome,s.cli_cod as cli_cod,p2.pes_nome as fun_nome,c.car_placa,s.ser_inicio, ser_status,ser_total";
+        sql="select s.ser_cod,mar_descricao,p.pes_nome as cli_nome,s.cli_cod as cli_cod,p2.pes_nome as fun_nome,c.car_placa,s.ser_inicio, ser_status";
         sql+=" from (Servico s";
         sql+=" left join Carro c on s.car_id=c.car_id"; 
         sql+=" left join Marca m on c.mar_cod=m.mar_cod";
@@ -185,7 +185,7 @@ module.exports={
     async consultarServico(request,response){
         const {cod} = request.params;
         const con = await db.conecta();
-        let sql = "SELECT ser_inicio,ser_status,p.pes_cod,ser_fim,ser_descricao,ser_maoObra,ser_total,p.pes_nome as cli_nome, p1.pes_nome as func_nome,c.car_placa ";
+        let sql = "SELECT ser_inicio,ser_status,p.pes_cod,ser_fim,ser_descricao,ser_maoObra,p.pes_nome as cli_nome, p1.pes_nome as func_nome,c.car_placa ";
         sql+="FROM (Servico s ";
         sql+="left join Pessoa p on cli_cod=p.pes_cod ";
         sql+="left join Pessoa p1 on fun_cod=p1.pes_cod ";
